@@ -2,349 +2,905 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Allergy & Asthma Center – Narahenpita</title>
+<title>Allergy &amp; Asthma Center – Narahenpita</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Custom favicon: medical leaf cross -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23006040'/><rect x='43' y='20' width='14' height='60' rx='7' fill='white'/><rect x='20' y='43' width='60' height='14' rx='7' fill='white'/></svg>">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
 <style>
+/* ===== RESET & BASE ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 :root{
-    --bg-main:#FFFFFF;
-    --text-body:#333333;
-    --heading-main:#006040;
-    --cta-accent:#008080;
-    --border-soft:#CCCCCC;
+  --green:#006040;
+  --teal:#008080;
+  --mint:#00b894;
+  --light:#e8f5f0;
+  --dark:#00291a;
+  --wa:#25d366;
+  --white:#fff;
+  --gray:#f7f9f8;
+  --text:#2d3b35;
+  --muted:#637068;
 }
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
 
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:var(--bg-main);
-    color:var(--text-body);
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-right.visible{opacity:1;transform:none}
+
+/* ===== STICKY NAV ===== */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,96,64,0.12);
+  padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  height:66px;
+  transition:box-shadow .3s;
 }
-
-section{
-    padding:60px 16px;
-    max-width:1100px;
-    margin:auto;
+nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-img{width:42px;height:42px;object-fit:contain;border-radius:8px}
+.nav-logo-text{font-family:'Playfair Display',serif;font-size:15px;color:var(--green);line-height:1.2}
+.nav-logo-text span{display:block;font-family:'Inter',sans-serif;font-size:11px;font-weight:400;color:var(--muted)}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--text);transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+.nav-cta{
+  background:var(--wa);color:var(--white);
+  border:none;border-radius:24px;
+  padding:9px 20px;font-size:14px;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;gap:7px;
+  text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
 }
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,211,102,.35)}
+.nav-cta svg{width:16px;height:16px;fill:white}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.nav-burger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px;transition:.3s}
 
-h1,h2,h3{
-    color:var(--heading-main);
-    margin-bottom:10px;
-}
-
-.center{text-align:center}
-
-/* ================= HERO ================= */
+/* ===== HERO ===== */
 .hero{
-    position:relative;
-    height:420px;
-    overflow:hidden;
+  position:relative;height:100vh;min-height:560px;
+  overflow:hidden;margin-top:0;
 }
-
-.slideshow,.slide{
-    position:absolute;
-    inset:0;
-}
-
-.slide{
-    opacity:0;
-    animation:fadeSlide 24s infinite;
-}
-
+.slideshow,.slide{position:absolute;inset:0}
+.slide{opacity:0;animation:fadeSlide 24s infinite}
 .slide:nth-child(1){animation-delay:0s}
 .slide:nth-child(2){animation-delay:6s}
 .slide:nth-child(3){animation-delay:12s}
 .slide:nth-child(4){animation-delay:18s}
-
-.slide img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
+.slide img{width:100%;height:100%;object-fit:cover}
 @keyframes fadeSlide{
-    0%{opacity:0}
-    10%{opacity:1}
-    40%{opacity:1}
-    50%{opacity:0}
-    100%{opacity:0}
+  0%{opacity:0}10%{opacity:1}40%{opacity:1}50%{opacity:0}100%{opacity:0}
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(0,40,26,.72) 0%,rgba(0,128,128,.45) 100%);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:0 20px;
+}
+.hero-content{color:var(--white);max-width:700px}
+.hero-logo-wrap{
+  width:110px;height:110px;margin:0 auto 22px;
+  background:rgba(255,255,255,.15);
+  border-radius:50%;padding:8px;
+  backdrop-filter:blur(6px);
+  border:2px solid rgba(255,255,255,.3);
+}
+.hero-logo-wrap img{width:100%;height:100%;object-fit:contain;border-radius:50%}
+.hero-content h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,5vw,54px);
+  line-height:1.15;
+  text-shadow:0 3px 12px rgba(0,0,0,.4);
+  margin-bottom:16px;
+}
+.hero-tagline{
+  font-size:clamp(14px,2vw,18px);
+  opacity:.9;margin-bottom:32px;line-height:1.6;
+}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--mint);color:var(--white);
+  border:none;border-radius:30px;
+  padding:13px 28px;font-size:15px;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,184,148,.4)}
+.btn-outline{
+  background:transparent;color:var(--white);
+  border:2px solid rgba(255,255,255,.7);border-radius:30px;
+  padding:13px 28px;font-size:15px;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  transition:background .2s,transform .2s;
+}
+.btn-outline:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:rgba(255,255,255,.7);font-size:12px;
+  animation:bounce 2s infinite;
+}
+.scroll-hint svg{width:20px;height:20px;stroke:rgba(255,255,255,.7);fill:none}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ===== STATS BAR ===== */
+.stats-bar{
+  background:linear-gradient(90deg,var(--green),var(--teal));
+  padding:32px 5%;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:20px;text-align:center;
+}
+.stat-item{color:var(--white)}
+.stat-num{
+  font-family:'Playfair Display',serif;font-size:38px;font-weight:700;
+  line-height:1;
+}
+.stat-label{font-size:13px;opacity:.85;margin-top:5px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ===== SECTION WRAPPER ===== */
+.section{padding:80px 5%}
+.section-alt{background:var(--gray)}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(26px,3.5vw,40px);color:var(--green);
+  text-align:center;margin-bottom:10px;
+}
+.section-sub{
+  text-align:center;color:var(--muted);
+  font-size:15px;margin-bottom:52px;max-width:560px;margin-left:auto;margin-right:auto;
+}
+.divider{
+  width:52px;height:3px;
+  background:linear-gradient(90deg,var(--mint),var(--teal));
+  border-radius:2px;margin:14px auto 0;
 }
 
-/* ================= HERO TEXT ================= */
-.hero-text{
-    position:absolute;
-    inset:0;
-    background:rgba(0,96,64,0.55);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#fff;
-    text-align:center;
-    padding:0 12px;
+/* ===== SERVICE CARDS ===== */
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;max-width:1200px;margin:auto;
 }
-
-.hero-logo{
-    width:120px;
-    height:120px;
-    margin:0 auto 18px;
+.svc-card{
+  background:var(--white);border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,96,64,.07);
+  transition:transform .3s,box-shadow .3s;
 }
-
-.hero-logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(0,96,64,.14)}
+.svc-img{width:100%;height:180px;object-fit:cover;display:block}
+.svc-img-skeleton{width:100%;height:180px;background:linear-gradient(90deg,#e8f5f0 25%,#d4ece4 50%,#e8f5f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.svc-body{padding:22px}
+.svc-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--light);display:flex;align-items:center;justify-content:center;
+  margin-bottom:12px;
 }
+.svc-icon svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:1.8}
+.svc-body h3{font-size:16px;font-weight:600;color:var(--green);margin-bottom:6px}
+.svc-body p{font-size:14px;color:var(--muted);line-height:1.6}
 
-/* Shadow for headline */
-.hero-text h1{
-    color:#fff;
-    text-shadow:0 3px 8px rgba(0,0,0,0.45);
+/* ===== TEAM ===== */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;max-width:900px;margin:auto;
 }
-
-/* ================= TAGLINE ANIMATION ================= */
-.tagline{
-    position:relative;
-    height:24px;
-    font-size:15px;
-    margin-top:6px;
+.team-card{
+  background:var(--white);border-radius:20px;
+  overflow:hidden;text-align:center;
+  box-shadow:0 4px 24px rgba(0,96,64,.08);
+  transition:transform .3s,box-shadow .3s;
 }
-
-.tagline span{
-    position:absolute;
-    inset:0;
-    opacity:0;
+.team-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(0,96,64,.14)}
+.team-img-wrap{position:relative;height:260px;overflow:hidden}
+.team-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.team-card:hover .team-img-wrap img{transform:scale(1.05)}
+.team-img-skeleton{width:100%;height:260px;background:linear-gradient(90deg,#e8f5f0 25%,#d4ece4 50%,#e8f5f0 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.team-badge{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  background:var(--green);color:var(--white);
+  font-size:11px;font-weight:600;padding:4px 14px;border-radius:20px;
+  white-space:nowrap;letter-spacing:.5px;
 }
+.team-body{padding:20px}
+.team-body h3{font-size:17px;font-weight:700;color:var(--green);margin-bottom:5px}
+.team-body p{font-size:13px;color:var(--muted)}
 
-/* FIRST LINE */
-.line-1{
-    animation:lineOne 8s infinite;
+/* ===== WHATSAPP BOOKING ===== */
+.booking-wrap{
+  max-width:860px;margin:auto;
+  background:var(--white);border-radius:24px;
+  box-shadow:0 8px 48px rgba(0,96,64,.12);
+  overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
 }
-
-/* SECOND LINE */
-.line-2{
-    animation:lineTwo 8s infinite;
+.booking-left{
+  background:linear-gradient(160deg,var(--green),var(--teal));
+  padding:44px 36px;color:var(--white);
+  display:flex;flex-direction:column;justify-content:space-between;
 }
-
-@keyframes lineOne{
-    0%{opacity:0}
-    10%{opacity:1}
-    40%{opacity:1}
-    55%{opacity:0}
-    100%{opacity:0}
+.booking-left h3{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:12px}
+.booking-left p{font-size:14px;opacity:.88;line-height:1.7;margin-bottom:28px}
+.booking-info-item{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:13px}
+.booking-info-item svg{width:18px;height:18px;stroke:rgba(255,255,255,.8);fill:none;flex-shrink:0}
+.wa-big{
+  margin-top:28px;display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.15);border-radius:14px;padding:14px 18px;
 }
-
-@keyframes lineTwo{
-    0%{opacity:0}
-    55%{opacity:0}
-    65%{opacity:1}
-    90%{opacity:1}
-    100%{opacity:0}
+.wa-big svg{width:32px;height:32px;fill:var(--wa)}
+.wa-big span{font-size:13px;opacity:.9}
+.wa-big strong{display:block;font-size:16px}
+.booking-right{padding:40px 36px}
+.booking-right h4{font-size:15px;font-weight:600;color:var(--green);margin-bottom:20px}
+.form-row{margin-bottom:18px}
+.form-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+.form-row input,.form-row select,.form-row textarea{
+  width:100%;border:1.5px solid #d4e4dd;border-radius:10px;
+  padding:10px 14px;font-size:14px;font-family:'Inter',sans-serif;
+  color:var(--text);background:var(--white);
+  transition:border-color .2s,box-shadow .2s;outline:none;
 }
-
-/* ================= CARDS ================= */
-.card{
-    background:#fff;
-    border:1px solid var(--border-soft);
-    border-radius:8px;
-    overflow:hidden;
-    box-shadow:0 4px 14px rgba(0,0,0,0.06);
-    transition:transform .3s ease, box-shadow .3s ease;
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{
+  border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,128,128,.1);
 }
-
-.card:hover{
-    transform:scale(1.03);
-    box-shadow:0 10px 28px rgba(0,0,0,0.12);
+.form-row textarea{resize:vertical;min-height:72px}
+.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time-slot{
+  border:1.5px solid #d4e4dd;border-radius:8px;
+  padding:7px 4px;text-align:center;font-size:12px;font-weight:500;
+  cursor:pointer;transition:all .2s;color:var(--text);background:var(--white);
+  user-select:none;
 }
-
-.card-image{
-    width:100%;
-    height:160px;
+.time-slot:hover{border-color:var(--teal);color:var(--teal)}
+.time-slot.selected{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.book-btn{
+  width:100%;background:var(--wa);color:var(--white);
+  border:none;border-radius:12px;
+  padding:14px;font-size:15px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
+  margin-top:8px;
+  transition:transform .2s,box-shadow .2s;
 }
+.book-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.35)}
+.book-btn svg{width:20px;height:20px;fill:white}
 
-.card-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+/* ===== YOUTUBE GALLERY ===== */
+.yt-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:22px;max-width:1200px;margin:auto;
 }
-
-.card-content{
-    padding:18px;
+.yt-card{
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,96,64,.08);
+  background:var(--white);
+  transition:transform .3s,box-shadow .3s;
 }
-
-/* ================= GRIDS ================= */
-.services,.staff{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:22px;
+.yt-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,96,64,.14)}
+.yt-thumb{
+  position:relative;width:100%;padding-top:56.25%;
+  background:#000;cursor:pointer;overflow:hidden;
 }
-
-/* Staff images: square, responsive */
-.staff .card-image{
-    height:220px;
+.yt-thumb img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .4s;
 }
-
-/* ================= CONTACT ================= */
-.contact{
-    border:1px solid var(--border-soft);
-    border-radius:8px;
-    padding:28px;
+.yt-card:hover .yt-thumb img{transform:scale(1.04)}
+.yt-play{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.25);transition:background .2s;
 }
-
-.map-link{
-    color:var(--cta-accent);
-    font-weight:bold;
-    text-decoration:none;
+.yt-card:hover .yt-play{background:rgba(0,0,0,.35)}
+.yt-play svg{width:56px;height:56px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+.yt-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.yt-meta{padding:16px 18px}
+.yt-meta h4{font-size:14px;font-weight:600;color:var(--green);margin-bottom:4px;line-height:1.4}
+.yt-meta p{font-size:12px;color:var(--muted)}
+.yt-channel-link{
+  display:block;text-align:center;margin-top:32px;
+  color:var(--teal);font-weight:600;font-size:15px;text-decoration:none;
+  transition:color .2s;
 }
+.yt-channel-link:hover{color:var(--green)}
+.yt-channel-link svg{vertical-align:middle;margin-right:5px;width:18px;height:18px;fill:currentColor}
 
-/* ================= MOBILE ================= */
-@media (max-width:768px){
-    .hero{height:300px}
-    .hero-logo{width:90px;height:90px}
-    .tagline{font-size:13px}
+/* ===== CONTACT ===== */
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:32px;max-width:1100px;margin:auto;
+  align-items:start;
 }
+.contact-card{
+  background:var(--white);border-radius:20px;
+  padding:36px;box-shadow:0 4px 24px rgba(0,96,64,.08);
+}
+.contact-card h3{font-size:18px;font-weight:700;color:var(--green);margin-bottom:20px}
+.contact-row{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.contact-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--light);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.contact-icon svg{width:18px;height:18px;stroke:var(--teal);fill:none;stroke-width:1.8}
+.contact-row-text{font-size:14px;color:var(--text);line-height:1.6}
+.contact-row-text strong{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.hours-table{width:100%;border-collapse:collapse;font-size:14px}
+.hours-table tr{border-bottom:1px solid var(--light)}
+.hours-table td{padding:9px 4px;color:var(--text)}
+.hours-table td:last-child{text-align:right;color:var(--teal);font-weight:500}
+.map-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--green);color:var(--white);
+  border-radius:12px;padding:13px;font-size:14px;font-weight:600;
+  text-decoration:none;margin-top:22px;
+  transition:transform .2s,box-shadow .2s;
+}
+.map-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,96,64,.28)}
+.map-btn svg{width:18px;height:18px;fill:white}
 
-@media (max-width:480px){
-    .hero{height:240px}
-    .services,.staff{grid-template-columns:1fr}
-    .staff .card-image{height:200px}
+/* ===== FOOTER ===== */
+footer{
+  background:var(--dark);color:rgba(255,255,255,.75);
+  padding:48px 5% 28px;
+}
+.footer-top{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;
+  gap:36px;margin-bottom:36px;
+}
+.footer-brand p{font-size:13px;line-height:1.7;margin-top:12px;max-width:280px}
+.footer-col h5{font-size:13px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:8px}
+.footer-col ul li a{color:rgba(255,255,255,.65);text-decoration:none;font-size:13px;transition:color .2s}
+.footer-col ul li a:hover{color:var(--mint)}
+.footer-logo-img{width:52px;height:52px;object-fit:contain;border-radius:8px}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.1);padding-top:20px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;flex-wrap:wrap;gap:10px;
+}
+.footer-bottom a{color:rgba(255,255,255,.5);text-decoration:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .booking-wrap{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links,.nav-cta{display:none}
+  .nav-burger{display:flex}
+  .hero-content h1{font-size:26px}
+  .time-slots{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr}
+  .booking-left{padding:28px 22px}
+  .booking-right{padding:28px 22px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
-    <div class="slideshow">
-        <div class="slide"><img data-img="HERO_SLIDE_1" src=""></div>
-        <div class="slide"><img data-img="HERO_SLIDE_2" src=""></div>
-        <div class="slide"><img data-img="HERO_SLIDE_3" src=""></div>
-        <div class="slide"><img data-img="HERO_SLIDE_4" src=""></div>
+<!-- ===== NAV ===== -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">
+    <img class="nav-logo-img" data-img="LOGO" src="" alt="Logo">
+    <div class="nav-logo-text">
+      Allergy &amp; Asthma Center
+      <span>Narahenpita, Colombo</span>
     </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#booking">Book</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#booking">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+    Book via WhatsApp
+  </a>
+  <div class="nav-burger" id="burger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-    <div class="hero-text">
-        <div>
-            <div class="hero-logo">
-                <img data-img="LOGO" src="">
-            </div>
+<!-- ===== HERO ===== -->
+<div class="hero" style="margin-top:66px">
+  <div class="slideshow">
+    <div class="slide"><img data-img="HERO_SLIDE_1" src="" alt=""></div>
+    <div class="slide"><img data-img="HERO_SLIDE_2" src="" alt=""></div>
+    <div class="slide"><img data-img="HERO_SLIDE_3" src="" alt=""></div>
+    <div class="slide"><img data-img="HERO_SLIDE_4" src="" alt=""></div>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img data-img="LOGO" src="" alt="Logo">
+      </div>
+      <h1>Sri Lanka's Leading Allergy &amp; Asthma Specialist</h1>
+      <p class="hero-tagline">Expert diagnosis, treatment &amp; long-term management of allergy and asthma conditions for patients of all ages.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#booking">Book Appointment</a>
+        <a class="btn-outline" href="#services">Our Services</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Scroll to explore
+  </div>
+</div>
 
-            <h1>Welcome to the Allergy & Asthma Center</h1>
+<!-- ===== STATS ===== -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <div class="stat-num" data-target="25000">0</div>
+    <div class="stat-label">Patients Treated</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="20">0</div>
+    <div class="stat-label">Years of Excellence</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="98">0</div>
+    <div class="stat-label">% Patient Satisfaction</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num" data-target="6">0</div>
+    <div class="stat-label">Specialist Services</div>
+  </div>
+</div>
 
-            <div class="tagline">
-                <span class="line-1">Sri Lanka’s No. 1 Allergy & Asthma Specialist</span>
-                <span class="line-2">Treating long-standing allergy and asthma conditions with expert care.</span>
-                <span class="line-3">Book your appoinment today.</span>
-            </div>
+<!-- ===== SERVICES ===== -->
+<section class="section" id="services">
+  <h2 class="section-title reveal">Our Services</h2>
+  <div class="divider reveal"></div>
+  <p class="section-sub reveal">Comprehensive allergy and asthma care using the latest diagnostic and therapeutic techniques.</p>
+  <div class="services-grid">
+
+    <div class="svc-card reveal">
+      <div class="svc-img-skeleton" id="skel-1"></div>
+      <img class="svc-img" data-img="SERVICE_ADULT_ALLERGY" src="" alt="Adult Allergy" style="display:none" onload="this.style.display='block';document.getElementById('skel-1').style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 3H8v4h8V3z"/><path d="M12 12v5M9.5 14.5h5"/></svg>
         </div>
+        <h3>Adult Allergy &amp; Asthma</h3>
+        <p>Specialist consultation and long-term management of adult allergy and asthma conditions.</p>
+      </div>
     </div>
-</div>
 
-<!-- SERVICES -->
-<section>
-<h2 class="center">Our Services</h2>
-<div class="services">
+    <div class="svc-card reveal">
+      <div class="svc-img-skeleton" id="skel-2"></div>
+      <img class="svc-img" data-img="SERVICE_CHILDHOOD_ALLERGY" src="" alt="Childhood Allergy" style="display:none" onload="this.style.display='block';document.getElementById('skel-2').style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.38 8.38 0 0 1 13 0"/><path d="M12 14v4M10 16h4"/></svg>
+        </div>
+        <h3>Childhood Allergy &amp; Asthma</h3>
+        <p>Comprehensive paediatric allergy care tailored for children of all ages.</p>
+      </div>
+    </div>
 
-<div class="card">
-<div class="card-image"><img data-img="SERVICE_ADULT_ALLERGY" src=""></div>
-<div class="card-content">
-<h3>Adult Allergy & Asthma</h3>
-<p>Specialist consultation and long-term management.</p>
-</div>
-</div>
+    <div class="svc-card reveal">
+      <div class="svc-img-skeleton" id="skel-3"></div>
+      <img class="svc-img" data-img="SERVICE_SKIN_EYE_NASAL" src="" alt="Skin Eye Nasal" style="display:none" onload="this.style.display='block';document.getElementById('skel-3').style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Skin, Eye &amp; Nasal Allergy</h3>
+        <p>Diagnosis and treatment of eczema, allergic rhinitis, conjunctivitis and related conditions.</p>
+      </div>
+    </div>
 
-<div class="card">
-<div class="card-image"><img data-img="SERVICE_CHILDHOOD_ALLERGY" src=""></div>
-<div class="card-content">
-<h3>Childhood Allergy & Asthma</h3>
-<p>Comprehensive paediatric allergy care.</p>
-</div>
-</div>
+    <div class="svc-card reveal">
+      <div class="svc-img-skeleton" id="skel-4"></div>
+      <img class="svc-img" data-img="SERVICE_DIAGNOSTIC" src="" alt="Diagnostic" style="display:none" onload="this.style.display='block';document.getElementById('skel-4').style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9l-6-6z"/><path d="M9 3v6h6M12 11v6M9 14h6"/></svg>
+        </div>
+        <h3>Diagnostic &amp; Therapeutic Services</h3>
+        <p>Skin testing, advanced lab testing, immunotherapy and pulmonary function tests.</p>
+      </div>
+    </div>
 
-<div class="card">
-<div class="card-image"><img data-img="SERVICE_SKIN_EYE_NASAL" src=""></div>
-<div class="card-content">
-<h3>Skin, Eye & Nasal Allergy</h3>
-<p>Diagnosis and treatment of allergic diseases.</p>
-</div>
-</div>
+    <div class="svc-card reveal">
+      <div class="svc-img-skeleton" id="skel-5"></div>
+      <img class="svc-img" data-img="SERVICE_PHARMACY" src="" alt="Pharmacy" style="display:none" onload="this.style.display='block';document.getElementById('skel-5').style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7z"/></svg>
+        </div>
+        <h3>Pharmacy Services</h3>
+        <p>Allergy medications and preventive products including masks, air filters and protective linen.</p>
+      </div>
+    </div>
 
-<div class="card">
-<div class="card-image"><img data-img="SERVICE_DIAGNOSTIC" src=""></div>
-<div class="card-content">
-<h3>Diagnostic & Therapeutic Services</h3>
-<p>Skin testing, advanced lab testing, immunotherapy, pulmonary function tests.</p>
-</div>
-</div>
+    <div class="svc-card reveal">
+      <div class="svc-img-skeleton" id="skel-6"></div>
+      <img class="svc-img" data-img="SERVICE_BLOOD_TESTS" src="" alt="Blood Tests" style="display:none" onload="this.style.display='block';document.getElementById('skel-6').style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 14 8 14s8-8.75 8-14a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Blood Tests &amp; Health Check-ups</h3>
+        <p>Routine blood investigations and comprehensive health screening services.</p>
+      </div>
+    </div>
 
-<div class="card">
-<div class="card-image"><img data-img="SERVICE_PHARMACY" src=""></div>
-<div class="card-content">
-<h3>Pharmacy Services</h3>
-<p>Allergy medications and preventive products including masks, filters, and linen.</p>
-</div>
-</div>
-
-<div class="card">
-<div class="card-image"><img data-img="SERVICE_BLOOD_TESTS" src=""></div>
-<div class="card-content">
-<h3>Blood Tests & Health Check-ups</h3>
-<p>Routine blood investigations and health screening services.</p>
-</div>
-</div>
-
-</div>
+  </div>
 </section>
 
-<!-- STAFF -->
-<section>
-<h2 class="center">Our Medical Team</h2>
-<div class="staff">
+<!-- ===== TEAM ===== -->
+<section class="section section-alt" id="team">
+  <h2 class="section-title reveal">Our Medical Team</h2>
+  <div class="divider reveal"></div>
+  <p class="section-sub reveal">Experienced specialists dedicated to your health and well-being.</p>
+  <div class="team-grid">
 
-<div class="card">
-<div class="card-image"><img data-img="STAFF_DR_AJITH" src=""></div>
-<div class="card-content">
-<h3>Dr. Ajith Amarasinghe</h3>
-<p>Consultant Allergy & Asthma Specialist.</p>
-</div>
-</div>
+    <div class="team-card reveal">
+      <div class="team-img-wrap">
+        <div class="team-img-skeleton" id="tskel-1"></div>
+        <img data-img="STAFF_DR_AJITH" src="" alt="Dr. Ajith Amarasinghe" style="display:none" onload="this.style.display='block';document.getElementById('tskel-1').style.display='none'">
+        <div class="team-badge">Lead Specialist</div>
+      </div>
+      <div class="team-body">
+        <h3>Dr. Ajith Amarasinghe</h3>
+        <p>Consultant Allergy &amp; Asthma Specialist with over 20 years of clinical experience.</p>
+      </div>
+    </div>
 
-<div class="card">
-<div class="card-image"><img data-img="STAFF_NURSING" src=""></div>
-<div class="card-content">
-<h3>Clinical & Nursing Staff</h3>
-<p>Experienced healthcare professionals delivering patient-centred care.</p>
-</div>
-</div>
+    <div class="team-card reveal">
+      <div class="team-img-wrap">
+        <div class="team-img-skeleton" id="tskel-2"></div>
+        <img data-img="STAFF_NURSING" src="" alt="Clinical Staff" style="display:none" onload="this.style.display='block';document.getElementById('tskel-2').style.display='none'">
+        <div class="team-badge">Clinical Team</div>
+      </div>
+      <div class="team-body">
+        <h3>Clinical &amp; Nursing Staff</h3>
+        <p>Experienced healthcare professionals delivering compassionate, patient-centred care.</p>
+      </div>
+    </div>
 
-</div>
+  </div>
 </section>
 
-<!-- CONTACT -->
-<section>
-<h2 class="center">Contact Us</h2>
-<div class="contact">
-<p><strong>Allergy & Asthma Center – Narahenpita</strong></p>
-<p>No.107, Wijaya Kumarathunga Mw, Polhengoda, Colombo 5, Sri Lanka</p>
-<p>
-Tel: 011 2 199 000<br>
-Fax: 011 2 768 642<br>
-Clinic Co-ordinator: 077 37 10 528<br>
-Email: allergy.asthmacenter.colombo@gmail.com
-</p>
+<!-- ===== WHATSAPP BOOKING ===== -->
+<section class="section" id="booking">
+  <h2 class="section-title reveal">Book an Appointment</h2>
+  <div class="divider reveal"></div>
+  <p class="section-sub reveal">Choose your preferred date and time and we'll confirm via WhatsApp instantly.</p>
 
-<a class="map-link" href="https://maps.app.goo.gl/PdQUhWW7MFJjigw27" target="_blank">
-Open Google Maps Directions
-</a>
-</div>
+  <div class="booking-wrap reveal">
+    <div class="booking-left">
+      <div>
+        <h3>Easy WhatsApp Booking</h3>
+        <p>Fill in your preferred appointment details and we will connect you with our clinic coordinator directly on WhatsApp.</p>
+        <div class="booking-info-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Clinic hours: Mon–Fri 8:30 AM – 5:00 PM
+        </div>
+        <div class="booking-info-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          No. 107, Wijaya Kumarathunga Mw, Colombo 5
+        </div>
+        <div class="booking-info-item">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.12 4.2 2 2 0 0 1 5.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.91 9.91A16 16 0 0 0 15 15l.45-.45a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Tel: 011 2 199 000
+        </div>
+      </div>
+      <div class="wa-big">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
+        <div>
+          <span>Clinic Coordinator</span>
+          <strong>077 37 10 528</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-right">
+      <h4>Fill in your details</h4>
+
+      <div class="form-row">
+        <label>Your Name</label>
+        <input type="text" id="bookName" placeholder="e.g. Kamal Perera">
+      </div>
+
+      <div class="form-row">
+        <label>Preferred Date</label>
+        <input type="date" id="bookDate">
+      </div>
+
+      <div class="form-row">
+        <label>Preferred Time Slot</label>
+        <div class="time-slots" id="timeSlots">
+          <div class="time-slot" data-time="8:30 AM">8:30 AM</div>
+          <div class="time-slot" data-time="9:00 AM">9:00 AM</div>
+          <div class="time-slot" data-time="9:30 AM">9:30 AM</div>
+          <div class="time-slot" data-time="10:00 AM">10:00 AM</div>
+          <div class="time-slot" data-time="10:30 AM">10:30 AM</div>
+          <div class="time-slot" data-time="11:00 AM">11:00 AM</div>
+          <div class="time-slot" data-time="2:00 PM">2:00 PM</div>
+          <div class="time-slot" data-time="2:30 PM">2:30 PM</div>
+          <div class="time-slot" data-time="3:00 PM">3:00 PM</div>
+          <div class="time-slot" data-time="3:30 PM">3:30 PM</div>
+          <div class="time-slot" data-time="4:00 PM">4:00 PM</div>
+          <div class="time-slot" data-time="4:30 PM">4:30 PM</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Reason / Notes (optional)</label>
+        <textarea id="bookReason" placeholder="e.g. Skin allergy follow-up, first visit for asthma..."></textarea>
+      </div>
+
+      <button class="book-btn" id="bookBtn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
+        Confirm via WhatsApp
+      </button>
+    </div>
+  </div>
 </section>
 
+<!-- ===== YOUTUBE GALLERY ===== -->
+<section class="section section-alt" id="videos">
+  <h2 class="section-title reveal">Watch &amp; Learn</h2>
+  <div class="divider reveal"></div>
+  <p class="section-sub reveal">Educational videos from Dr. Ajith Amarasinghe and the Allergy &amp; Asthma Center team.</p>
 
-<script src="images.js"></script>
+  <div class="yt-grid" id="ytGrid">
+    <!-- Populated by JS — update VIDEO_IDs below -->
+  </div>
+
+  <a class="yt-channel-link reveal" href="https://www.youtube.com/@AllergyAsthmaCenter" target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-2.75 12.54 12.54 0 0 0-8.64 0 4.83 4.83 0 0 1-3.77 2.75 13.58 13.58 0 0 0 0 10.62 4.83 4.83 0 0 1 3.77 2.75 12.54 12.54 0 0 0 8.64 0 4.83 4.83 0 0 1 3.77-2.75 13.58 13.58 0 0 0 0-10.62zm-7.59 7.56-4-2.31V8.06l4 2.31 4-2.31v3.88z"/></svg>
+    Visit our YouTube Channel →
+  </a>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="section" id="contact">
+  <h2 class="section-title reveal">Contact Us</h2>
+  <div class="divider reveal"></div>
+  <p class="section-sub reveal">We're here to help. Reach us by phone, email or visit our clinic in Colombo.</p>
+
+  <div class="contact-grid">
+    <div class="contact-card reveal-left">
+      <h3>Get in Touch</h3>
+
+      <div class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-row-text">
+          <strong>Address</strong>
+          No. 107, Wijaya Kumarathunga Mw, Polhengoda,<br>Colombo 5, Sri Lanka
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.61 19a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 3.12 4.2 2 2 0 0 1 5.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.91 9.91A16 16 0 0 0 15 15l.45-.45a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-row-text">
+          <strong>Phone</strong>
+          011 2 199 000 &nbsp;|&nbsp; Fax: 011 2 768 642<br>
+          Coordinator: 077 37 10 528
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-row-text">
+          <strong>Email</strong>
+          allergy.asthmacenter.colombo@gmail.com
+        </div>
+      </div>
+
+      <a class="map-btn" href="https://maps.app.goo.gl/PdQUhWW7MFJjigw27" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Open Google Maps Directions
+      </a>
+    </div>
+
+    <div class="contact-card reveal-right">
+      <h3>Clinic Hours</h3>
+      <table class="hours-table">
+        <tr><td>Monday</td><td>8:30 AM – 5:00 PM</td></tr>
+        <tr><td>Tuesday</td><td>8:30 AM – 5:00 PM</td></tr>
+        <tr><td>Wednesday</td><td>8:30 AM – 5:00 PM</td></tr>
+        <tr><td>Thursday</td><td>8:30 AM – 5:00 PM</td></tr>
+        <tr><td>Friday</td><td>8:30 AM – 5:00 PM</td></tr>
+        <tr><td>Saturday</td><td>8:30 AM – 1:00 PM</td></tr>
+        <tr><td>Sunday</td><td>Closed</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img class="footer-logo-img" data-img="LOGO" src="" alt="Logo">
+      <p>Sri Lanka's leading allergy and asthma specialist clinic, offering expert care and long-term management for all allergy-related conditions.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#booking">Book Appointment</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="tel:0112199000">011 2 199 000</a></li>
+        <li><a href="tel:0773710528">077 37 10 528</a></li>
+        <li><a href="mailto:allergy.asthmacenter.colombo@gmail.com">Email Us</a></li>
+        <li><a href="https://www.youtube.com/@AllergyAsthmaCenter" target="_blank">YouTube Channel</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Allergy &amp; Asthma Center, Narahenpita. All rights reserved.</span>
+    <a href="https://maps.app.goo.gl/PdQUhWW7MFJjigw27" target="_blank">Colombo 5, Sri Lanka</a>
+  </div>
+</footer>
+
+<!-- images.js loaded DEFERRED so it does not block render -->
+<script defer src="images.js"></script>
+
 <script>
+// ===== APPLY IMAGES AFTER DEFER LOAD =====
+document.addEventListener('DOMContentLoaded', function() {
+  if(typeof SITE_IMAGES !== 'undefined') applyImages();
+});
+// Also handle if images.js fires after DOMContentLoaded
+window.addEventListener('load', function() {
+  if(typeof SITE_IMAGES !== 'undefined') applyImages();
+});
+function applyImages() {
   document.querySelectorAll('img[data-img]').forEach(function(img) {
     var key = img.getAttribute('data-img');
     if (SITE_IMAGES[key]) img.src = SITE_IMAGES[key];
   });
+}
+
+// ===== STICKY NAV SHADOW =====
+window.addEventListener('scroll', function() {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// ===== SCROLL REVEAL =====
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el) {
+  revealObserver.observe(el);
+});
+
+// ===== ANIMATED COUNTERS =====
+var countObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-target]').forEach(function(el) {
+        var target = +el.getAttribute('data-target');
+        var suffix = el.closest('.stat-item').querySelector('.stat-label').textContent.includes('%') ? '%' : (target >= 1000 ? '+' : '+');
+        var duration = 1600, steps = 60, step = 0;
+        var timer = setInterval(function() {
+          step++;
+          el.textContent = Math.round(target * step / steps).toLocaleString() + (step === steps ? suffix : '');
+          if (step >= steps) clearInterval(timer);
+        }, duration / steps);
+      });
+      countObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+var statsBar = document.querySelector('.stats-bar');
+if (statsBar) countObserver.observe(statsBar);
+
+// ===== TIME SLOT SELECTION =====
+var selectedTime = '';
+document.querySelectorAll('.time-slot').forEach(function(slot) {
+  slot.addEventListener('click', function() {
+    document.querySelectorAll('.time-slot').forEach(function(s) { s.classList.remove('selected'); });
+    slot.classList.add('selected');
+    selectedTime = slot.getAttribute('data-time');
+  });
+});
+
+// Set min date to today
+var today = new Date().toISOString().split('T')[0];
+document.getElementById('bookDate').setAttribute('min', today);
+
+// ===== WHATSAPP BOOKING =====
+document.getElementById('bookBtn').addEventListener('click', function() {
+  var name = document.getElementById('bookName').value.trim() || 'Not provided';
+  var date = document.getElementById('bookDate').value;
+  var reason = document.getElementById('bookReason').value.trim() || 'General consultation';
+
+  if (!date) { alert('Please select a preferred date.'); return; }
+  if (!selectedTime) { alert('Please select a preferred time slot.'); return; }
+
+  var dateFormatted = new Date(date).toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+  var msg = 'Hello, I would like to book a consultation appointment at the Allergy & Asthma Center, Narahenpita.\n\n'
+    + '👤 Name: ' + name + '\n'
+    + '📅 Date: ' + dateFormatted + '\n'
+    + '🕐 Time: ' + selectedTime + '\n'
+    + '📋 Reason: ' + reason + '\n\n'
+    + 'Please confirm my appointment. Thank you!';
+
+  window.open('https://wa.me/94773710528?text=' + encodeURIComponent(msg), '_blank');
+});
+
+// ===== YOUTUBE GALLERY =====
+// !! Replace the id values below with actual YouTube video IDs from @AllergyAsthmaCenter !!
+var VIDEOS = [
+  { id: 'REPLACE_VIDEO_ID_1', title: 'Understanding Allergies & Asthma', desc: 'An introduction to common allergy and asthma conditions.' },
+  { id: 'REPLACE_VIDEO_ID_2', title: 'Allergy Testing Explained', desc: 'How skin prick tests and lab tests help diagnose allergies.' },
+  { id: 'REPLACE_VIDEO_ID_3', title: 'Childhood Allergy Management', desc: 'Expert advice on managing allergies in children.' },
+  { id: 'REPLACE_VIDEO_ID_4', title: 'Immunotherapy Treatment', desc: 'How immunotherapy can provide long-term allergy relief.' },
+  { id: 'REPLACE_VIDEO_ID_5', title: 'Skin & Nasal Allergy Care', desc: 'Treating eczema, rhinitis and related allergic conditions.' },
+  { id: 'REPLACE_VIDEO_ID_6', title: 'Living Well with Asthma', desc: 'Practical tips for managing asthma day to day.' }
+];
+
+var grid = document.getElementById('ytGrid');
+VIDEOS.forEach(function(v, i) {
+  var card = document.createElement('div');
+  card.className = 'yt-card reveal';
+  var isPlaceholder = v.id.startsWith('REPLACE');
+  card.innerHTML = '<div class="yt-thumb" id="ythumb-' + i + '">'
+    + (isPlaceholder
+        ? '<div style="position:absolute;inset:0;background:linear-gradient(135deg,#e8f5f0,#d4ece4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:13px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Video Coming Soon</div>'
+        : '<img src="https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg" alt="' + v.title + '" loading="lazy">'
+          + '<div class="yt-play"><svg viewBox="0 0 68 48"><path fill="#ff0000" d="M66.52 7.74a8.1 8.1 0 0 0-5.7-5.71C55.79.69 34 .69 34 .69S12.21.69 7.18 2.03a8.1 8.1 0 0 0-5.7 5.71A84.96 84.96 0 0 0 .15 24a84.96 84.96 0 0 0 1.33 16.26 8.1 8.1 0 0 0 5.7 5.71C12.21 47.31 34 47.31 34 47.31s21.79 0 26.82-1.34a8.1 8.1 0 0 0 5.7-5.71A84.96 84.96 0 0 0 67.85 24a84.96 84.96 0 0 0-1.33-16.26z"/><path fill="white" d="M27 34l18-10-18-10z"/></svg></div>'
+      )
+    + '</div>'
+    + '<div class="yt-meta"><h4>' + v.title + '</h4><p>' + v.desc + '</p></div>';
+
+  if (!isPlaceholder) {
+    card.querySelector('.yt-thumb').addEventListener('click', function() {
+      document.getElementById('ythumb-' + i).innerHTML =
+        '<iframe src="https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    });
+  }
+  grid.appendChild(card);
+  revealObserver.observe(card);
+});
 </script>
+
 </body>
 </html>
