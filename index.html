@@ -40,6 +40,9 @@ img{max-width:100%;height:auto}
 .reveal-left.visible{opacity:1;transform:none}
 .reveal-right{opacity:0;transform:translateX(20px);transition:opacity .65s ease,transform .65s ease}
 .reveal-right.visible{opacity:1;transform:none}
+/* fade-only reveal: occupies space immediately, just fades in — no layout gap */
+.reveal-fade{opacity:0;transition:opacity .8s ease}
+.reveal-fade.visible{opacity:1}
 
 /* ===== STICKY NAV ===== */
 nav{
@@ -515,13 +518,13 @@ footer{
 </div>
 
 <!-- ===== STATS ===== -->
-<div class="stats-bar">
+<div class="stats-bar reveal-fade">
   <div class="stat-item">
     <div class="stat-num" data-target="25000">0</div>
     <div class="stat-label">Patients Treated</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num" data-target="20">0</div>
+    <div class="stat-num" data-target="7">0</div>
     <div class="stat-label">Years of Excellence</div>
   </div>
 <div class="stat-item">
@@ -881,7 +884,7 @@ var revealObserver = new IntersectionObserver(function(entries) {
     }
   });
 }, { threshold: 0.12 });
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(function(el) {
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-fade').forEach(function(el) {
   revealObserver.observe(el);
 });
 
