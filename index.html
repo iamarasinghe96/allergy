@@ -993,9 +993,13 @@ document.getElementById('bookBtn').addEventListener('click', function() {
 
 // ===== YOUTUBE GALLERY (live feed) =====
 (function() {
-  var HANDLE   = 'AllergyAsthmaCenter';
-  var PROXY    = 'https://corsproxy.io/?';
-  var CACHE_KEY = 'yt_cid_' + HANDLE;
+  var CHANNEL_ID = 'UC-tbV1cXaZGb7QWR8xWG7Hg';
+  var RSS_URL    = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+  var PROXIES    = [
+    'https://api.allorigins.win/raw?url=',
+    'https://corsproxy.io/?',
+    'https://api.codetabs.com/v1/proxy?quest='
+  ];
   var PLAY_SVG = '<svg viewBox="0 0 68 48"><path fill="#ff0000" d="M66.52 7.74a8.1 8.1 0 0 0-5.7-5.71C55.79.69 34 .69 34 .69S12.21.69 7.18 2.03a8.1 8.1 0 0 0-5.7 5.71A84.96 84.96 0 0 0 .15 24a84.96 84.96 0 0 0 1.33 16.26 8.1 8.1 0 0 0 5.7 5.71C12.21 47.31 34 47.31 34 47.31s21.79 0 26.82-1.34a8.1 8.1 0 0 0 5.7-5.71A84.96 84.96 0 0 0 67.85 24a84.96 84.96 0 0 0-1.33-16.26z"/><path fill="white" d="M27 34l18-10-18-10z"/></svg>';
   var grid = document.getElementById('ytGrid');
 
@@ -1047,30 +1051,18 @@ document.getElementById('bookBtn').addEventListener('click', function() {
     });
   }
 
-  function fetchRSS(channelId) {
-    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
-    return fetch(PROXY + encodeURIComponent(rssUrl))
-      .then(function(r) { if (!r.ok) throw new Error('rss ' + r.status); return r.text(); });
+  function tryProxies(proxies) {
+    if (!proxies.length) return Promise.reject(new Error('all proxies failed'));
+    var proxy = proxies[0];
+    return fetch(proxy + encodeURIComponent(RSS_URL))
+      .then(function(r) { if (!r.ok) throw new Error('http ' + r.status); return r.text(); })
+      .catch(function() { return tryProxies(proxies.slice(1)); });
   }
 
-  function fetchChannelId() {
-    var cached = sessionStorage.getItem(CACHE_KEY);
-    if (cached) return Promise.resolve(cached);
-    return fetch(PROXY + encodeURIComponent('https://www.youtube.com/@' + HANDLE))
-      .then(function(r) { if (!r.ok) throw new Error('page ' + r.status); return r.text(); })
-      .then(function(html) {
-        var m = html.match(/"channelId":"(UC[\w-]{22})"/);
-        if (!m) throw new Error('channelId not found');
-        sessionStorage.setItem(CACHE_KEY, m[1]);
-        return m[1];
-      });
-  }
-
-  // Show loading skeleton
+  // Show loading state
   grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted)">Loading videos\u2026</div>';
 
-  fetchChannelId()
-    .then(fetchRSS)
+  tryProxies(PROXIES)
     .then(parseAndRender)
     .catch(function(err) { console.warn('YT feed:', err); renderFallback(); });
 }());
