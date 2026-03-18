@@ -991,40 +991,89 @@ document.getElementById('bookBtn').addEventListener('click', function() {
   window.open('https://wa.me/94773710528?text=' + encodeURIComponent(msg), '_blank');
 });
 
-// ===== YOUTUBE GALLERY =====
-// !! Replace the id values below with actual YouTube video IDs from @AllergyAsthmaCenter !!
-var VIDEOS = [
-  { id: 'REPLACE_VIDEO_ID_1', title: 'Understanding Allergies & Asthma', desc: 'An introduction to common allergy and asthma conditions.' },
-  { id: 'REPLACE_VIDEO_ID_2', title: 'Allergy Testing Explained', desc: 'How skin prick tests and lab tests help diagnose allergies.' },
-  { id: 'REPLACE_VIDEO_ID_3', title: 'Childhood Allergy Management', desc: 'Expert advice on managing allergies in children.' },
-  { id: 'REPLACE_VIDEO_ID_4', title: 'Immunotherapy Treatment', desc: 'How immunotherapy can provide long-term allergy relief.' },
-  { id: 'REPLACE_VIDEO_ID_5', title: 'Skin & Nasal Allergy Care', desc: 'Treating eczema, rhinitis and related allergic conditions.' },
-  { id: 'REPLACE_VIDEO_ID_6', title: 'Living Well with Asthma', desc: 'Practical tips for managing asthma day to day.' }
-];
+// ===== YOUTUBE GALLERY (live feed) =====
+(function() {
+  var HANDLE   = 'AllergyAsthmaCenter';
+  var PROXY    = 'https://corsproxy.io/?';
+  var CACHE_KEY = 'yt_cid_' + HANDLE;
+  var PLAY_SVG = '<svg viewBox="0 0 68 48"><path fill="#ff0000" d="M66.52 7.74a8.1 8.1 0 0 0-5.7-5.71C55.79.69 34 .69 34 .69S12.21.69 7.18 2.03a8.1 8.1 0 0 0-5.7 5.71A84.96 84.96 0 0 0 .15 24a84.96 84.96 0 0 0 1.33 16.26 8.1 8.1 0 0 0 5.7 5.71C12.21 47.31 34 47.31 34 47.31s21.79 0 26.82-1.34a8.1 8.1 0 0 0 5.7-5.71A84.96 84.96 0 0 0 67.85 24a84.96 84.96 0 0 0-1.33-16.26z"/><path fill="white" d="M27 34l18-10-18-10z"/></svg>';
+  var grid = document.getElementById('ytGrid');
 
-var grid = document.getElementById('ytGrid');
-VIDEOS.forEach(function(v, i) {
-  var card = document.createElement('div');
-  card.className = 'yt-card reveal';
-  var isPlaceholder = v.id.startsWith('REPLACE');
-  card.innerHTML = '<div class="yt-thumb" id="ythumb-' + i + '">'
-    + (isPlaceholder
-        ? '<div style="position:absolute;inset:0;background:linear-gradient(135deg,#e8f5f0,#d4ece4);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-size:13px;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Video Coming Soon</div>'
-        : '<img src="https://img.youtube.com/vi/' + v.id + '/hqdefault.jpg" alt="' + v.title + '" loading="lazy">'
-          + '<div class="yt-play"><svg viewBox="0 0 68 48"><path fill="#ff0000" d="M66.52 7.74a8.1 8.1 0 0 0-5.7-5.71C55.79.69 34 .69 34 .69S12.21.69 7.18 2.03a8.1 8.1 0 0 0-5.7 5.71A84.96 84.96 0 0 0 .15 24a84.96 84.96 0 0 0 1.33 16.26 8.1 8.1 0 0 0 5.7 5.71C12.21 47.31 34 47.31 34 47.31s21.79 0 26.82-1.34a8.1 8.1 0 0 0 5.7-5.71A84.96 84.96 0 0 0 67.85 24a84.96 84.96 0 0 0-1.33-16.26z"/><path fill="white" d="M27 34l18-10-18-10z"/></svg></div>'
-      )
-    + '</div>'
-    + '<div class="yt-meta"><h4>' + v.title + '</h4><p>' + v.desc + '</p></div>';
-
-  if (!isPlaceholder) {
+  function renderCard(videoId, title, desc, index) {
+    var card = document.createElement('div');
+    card.className = 'yt-card reveal';
+    var safeTitle = title.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    var shortDesc = desc.length > 110 ? desc.slice(0, 110) + '\u2026' : desc;
+    card.innerHTML =
+      '<div class="yt-thumb" id="ythumb-' + index + '">'
+      + '<img src="https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg" alt="' + safeTitle + '" loading="lazy">'
+      + '<div class="yt-play">' + PLAY_SVG + '</div>'
+      + '</div>'
+      + '<div class="yt-meta"><h4>' + title + '</h4><p>' + shortDesc + '</p></div>';
     card.querySelector('.yt-thumb').addEventListener('click', function() {
-      document.getElementById('ythumb-' + i).innerHTML =
-        '<iframe src="https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      document.getElementById('ythumb-' + index).innerHTML =
+        '<iframe src="https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    });
+    grid.appendChild(card);
+    revealObserver.observe(card);
+  }
+
+  function renderFallback() {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted)">'
+      + 'Could not load videos automatically. '
+      + '<a href="https://www.youtube.com/@AllergyAsthmaCenter" target="_blank" rel="noopener" style="color:var(--green);font-weight:600">Visit our YouTube channel \u2192</a>'
+      + '</div>';
+  }
+
+  function parseAndRender(rssText) {
+    var xml = new DOMParser().parseFromString(rssText, 'text/xml');
+    var entries = Array.from(xml.querySelectorAll('entry')).slice(0, 9);
+    if (!entries.length) { renderFallback(); return; }
+    grid.innerHTML = '';
+    var nsYT = 'http://www.youtube.com/xml/schemas/2015';
+    var nsMR = 'http://search.yahoo.com/mrss/';
+    entries.forEach(function(entry, i) {
+      var ytNodes = entry.getElementsByTagNameNS(nsYT, 'videoId');
+      var videoId = ytNodes.length ? ytNodes[0].textContent
+                    : (entry.querySelector('id') || {textContent:''}).textContent.split(':').pop();
+      var title = (entry.querySelector('title') || {textContent:''}).textContent;
+      var mgNodes = entry.getElementsByTagNameNS(nsMR, 'group');
+      var desc = '';
+      if (mgNodes.length) {
+        var dNodes = mgNodes[0].getElementsByTagNameNS(nsMR, 'description');
+        if (dNodes.length) desc = dNodes[0].textContent;
+      }
+      if (videoId) renderCard(videoId, title, desc, i);
     });
   }
-  grid.appendChild(card);
-  revealObserver.observe(card);
-});
+
+  function fetchRSS(channelId) {
+    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+    return fetch(PROXY + encodeURIComponent(rssUrl))
+      .then(function(r) { if (!r.ok) throw new Error('rss ' + r.status); return r.text(); });
+  }
+
+  function fetchChannelId() {
+    var cached = sessionStorage.getItem(CACHE_KEY);
+    if (cached) return Promise.resolve(cached);
+    return fetch(PROXY + encodeURIComponent('https://www.youtube.com/@' + HANDLE))
+      .then(function(r) { if (!r.ok) throw new Error('page ' + r.status); return r.text(); })
+      .then(function(html) {
+        var m = html.match(/"channelId":"(UC[\w-]{22})"/);
+        if (!m) throw new Error('channelId not found');
+        sessionStorage.setItem(CACHE_KEY, m[1]);
+        return m[1];
+      });
+  }
+
+  // Show loading skeleton
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--muted)">Loading videos\u2026</div>';
+
+  fetchChannelId()
+    .then(fetchRSS)
+    .then(parseAndRender)
+    .catch(function(err) { console.warn('YT feed:', err); renderFallback(); });
+}());
 </script>
 
 </body>
