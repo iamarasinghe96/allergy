@@ -145,7 +145,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 .stats-bar{
   background:linear-gradient(90deg,var(--green),var(--teal));
   padding:32px 5%;
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(3,1fr);
   gap:16px;text-align:center;
 }
 .stat-item{color:var(--white)}
@@ -436,8 +436,8 @@ footer{
   .section-sub{margin-bottom:36px}
   .booking-wrap{margin:0}
   .footer-bottom{flex-direction:column;text-align:center;gap:6px}
-  /* stats bar: 2x2 grid on mobile */
-  .stats-bar{grid-template-columns:repeat(2,1fr);padding:24px 5%;gap:12px}
+  /* stats bar: single row of 3 on mobile */
+  .stats-bar{grid-template-columns:repeat(3,1fr);padding:20px 4%;gap:8px}
   .stat-num{font-size:28px}
   /* ensure grids never overflow viewport */
   .services-grid{grid-template-columns:1fr}
@@ -524,11 +524,7 @@ footer{
     <div class="stat-num" data-target="20">0</div>
     <div class="stat-label">Years of Excellence</div>
   </div>
-  <div class="stat-item">
-    <div class="stat-num" data-target="98">0</div>
-    <div class="stat-label">% Patient Satisfaction</div>
-  </div>
-  <div class="stat-item">
+<div class="stat-item">
     <div class="stat-num" data-target="6">0</div>
     <div class="stat-label">Specialist Services</div>
   </div>
