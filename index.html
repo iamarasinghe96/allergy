@@ -257,7 +257,7 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 .booking-right h4{font-size:15px;font-weight:600;color:var(--green);margin-bottom:20px}
 .form-row{margin-bottom:18px}
 .form-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
-.form-row input,.form-row select,.form-row textarea{
+.form-row input,.form-row select,.form-row textarea{scroll-margin-top:80px;
   width:100%;border:1.5px solid #d4e4dd;border-radius:10px;
   padding:10px 14px;font-size:16px;font-family:'Inter',sans-serif;
   color:#2d3b35 !important;-webkit-text-fill-color:#2d3b35 !important;
@@ -883,6 +883,22 @@ function applyImages() {
     if (SITE_IMAGES[key]) img.src = SITE_IMAGES[key];
   });
 }
+
+// ===== iOS KEYBOARD SCROLL FIX =====
+// When the keyboard opens, iOS shrinks the viewport and auto-scrolls the
+// focused element — but ignores the fixed nav bar, so the field ends up
+// hidden. We wait for the keyboard animation (~450ms) then manually
+// center the focused element in the remaining visible space.
+document.querySelectorAll('.booking-right input, .booking-right textarea').forEach(function(el) {
+  el.addEventListener('focus', function() {
+    var focused = this;
+    setTimeout(function() {
+      if (document.activeElement === focused) {
+        focused.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
+    }, 450);
+  });
+});
 
 // ===== HAMBURGER MENU =====
 var burger = document.getElementById('burger');
