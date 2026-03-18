@@ -15,7 +15,8 @@
 <style>
 /* ===== RESET & BASE ===== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+/* overflow-x on BOTH html and body — required for iOS Safari to prevent horizontal scroll */
+html{scroll-behavior:smooth;overflow-x:hidden;max-width:100%}
 :root{
   --green:#006040;
   --teal:#008080;
@@ -28,14 +29,16 @@ html{scroll-behavior:smooth}
   --text:#2d3b35;
   --muted:#637068;
 }
-body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;width:100%}
+img{max-width:100%;height:auto}
 
 /* ===== SCROLL ANIMATIONS ===== */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+/* translateX kept small (20px) to avoid off-screen overflow before firing */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
 .reveal.visible{opacity:1;transform:none}
-.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left{opacity:0;transform:translateX(-20px);transition:opacity .65s ease,transform .65s ease}
 .reveal-left.visible{opacity:1;transform:none}
-.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-right{opacity:0;transform:translateX(20px);transition:opacity .65s ease,transform .65s ease}
 .reveal-right.visible{opacity:1;transform:none}
 
 /* ===== STICKY NAV ===== */
@@ -142,8 +145,8 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 .stats-bar{
   background:linear-gradient(90deg,var(--green),var(--teal));
   padding:32px 5%;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:20px;text-align:center;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;text-align:center;
 }
 .stat-item{color:var(--white)}
 .stat-num{
@@ -422,16 +425,24 @@ footer{
   .hero-content h1{font-size:26px}
   .time-slots{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr}
-  .booking-left{padding:28px 22px}
-  .booking-right{padding:28px 22px}
+  .booking-left{padding:28px 20px}
+  .booking-right{padding:24px 20px}
   /* prevent date input from overflowing on mobile */
   .form-row input[type="date"]{
     -webkit-appearance:none;appearance:none;
     width:100%;max-width:100%;display:block;
   }
-  .section{padding:60px 4%}
+  .section{padding:56px 4%}
+  .section-sub{margin-bottom:36px}
   .booking-wrap{margin:0}
   .footer-bottom{flex-direction:column;text-align:center;gap:6px}
+  /* stats bar: 2x2 grid on mobile */
+  .stats-bar{grid-template-columns:repeat(2,1fr);padding:24px 5%;gap:12px}
+  .stat-num{font-size:28px}
+  /* ensure grids never overflow viewport */
+  .services-grid{grid-template-columns:1fr}
+  .yt-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
