@@ -841,6 +841,10 @@ footer{
 <script defer src="images.js"></script>
 
 <script>
+// ===== ALWAYS START AT TOP ON LOAD/REFRESH =====
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 // ===== APPLY IMAGES AFTER DEFER LOAD =====
 document.addEventListener('DOMContentLoaded', function() {
   if(typeof SITE_IMAGES !== 'undefined') applyImages();
