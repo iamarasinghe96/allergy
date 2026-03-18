@@ -259,16 +259,24 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 .form-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
 .form-row input,.form-row select,.form-row textarea{
   width:100%;border:1.5px solid #d4e4dd;border-radius:10px;
-  padding:10px 14px;font-size:14px;font-family:'Inter',sans-serif;
-  color:var(--text);-webkit-text-fill-color:var(--text);
-  background:var(--white);-webkit-opacity:1;
+  padding:10px 14px;font-size:16px;font-family:'Inter',sans-serif;
+  color:#2d3b35 !important;-webkit-text-fill-color:#2d3b35 !important;
+  background:#ffffff !important;opacity:1 !important;
   transition:border-color .2s,box-shadow .2s;outline:none;
-  -webkit-appearance:none;
+  -webkit-appearance:none;color-scheme:light;
 }
 .form-row input:focus,.form-row select:focus,.form-row textarea:focus{
   border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,128,128,.1);
 }
-.form-row textarea{resize:vertical;min-height:72px;font-size:16px}
+/* Override Brave/Safari autofill background which can hide typed text */
+.form-row input:-webkit-autofill,
+.form-row input:-webkit-autofill:focus,
+.form-row textarea:-webkit-autofill{
+  -webkit-box-shadow:0 0 0 999px #ffffff inset !important;
+  -webkit-text-fill-color:#2d3b35 !important;
+  caret-color:#2d3b35;
+}
+.form-row textarea{resize:vertical;min-height:80px}
 .time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .time-slot{
   border:1.5px solid #d4e4dd;border-radius:8px;
@@ -845,11 +853,21 @@ footer{
 <script>
 // ===== ALWAYS START AT TOP ON LOAD/REFRESH =====
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-// Clear any hash so browser doesn't jump to a section anchor
 if (window.location.hash) history.replaceState(null, '', window.location.pathname);
+document.documentElement.style.scrollBehavior = 'auto';
 window.scrollTo(0, 0);
-document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
-window.addEventListener('load', function() { window.scrollTo(0, 0); });
+document.addEventListener('DOMContentLoaded', function() {
+  window.scrollTo(0, 0);
+  requestAnimationFrame(function() { window.scrollTo(0, 0); });
+});
+window.addEventListener('load', function() {
+  window.scrollTo(0, 0);
+  requestAnimationFrame(function() {
+    window.scrollTo(0, 0);
+    // Re-enable smooth scrolling after we've locked the position
+    document.documentElement.style.scrollBehavior = '';
+  });
+});
 
 // ===== APPLY IMAGES AFTER DEFER LOAD =====
 document.addEventListener('DOMContentLoaded', function() {
