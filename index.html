@@ -230,75 +230,6 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 .team-body h3{font-size:17px;font-weight:700;color:var(--green);margin-bottom:5px}
 .team-body p{font-size:13px;color:var(--muted)}
 
-/* ===== WHATSAPP BOOKING ===== */
-.booking-wrap{
-  max-width:860px;margin:auto;
-  background:var(--white);border-radius:24px;
-  box-shadow:0 8px 48px rgba(0,96,64,.12);
-  overflow:hidden;
-  display:grid;grid-template-columns:1fr 1fr;
-}
-.booking-left{
-  background:linear-gradient(160deg,var(--green),var(--teal));
-  padding:44px 36px;color:var(--white);
-  display:flex;flex-direction:column;justify-content:space-between;
-}
-.booking-left h3{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:12px}
-.booking-left a{color:#fff !important;-webkit-text-fill-color:#fff !important;text-decoration:none}
-.booking-left p{font-size:14px;opacity:.88;line-height:1.7;margin-bottom:28px}
-.booking-info-item{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:13px}
-.booking-info-item svg{width:18px;height:18px;stroke:rgba(255,255,255,.8);fill:none;flex-shrink:0}
-.wa-big{
-  margin-top:28px;display:inline-flex;align-items:center;gap:10px;
-  background:rgba(255,255,255,.15);border-radius:14px;padding:14px 18px;
-  display:flex;width:fit-content;margin-left:auto;margin-right:auto;
-}
-.wa-big svg{width:32px;height:32px;fill:var(--wa)}
-.wa-big span{font-size:13px;opacity:.9}
-.wa-big strong{display:block;font-size:16px}
-.booking-right{padding:40px 36px}
-.booking-right h4{font-size:15px;font-weight:600;color:var(--green);margin-bottom:20px}
-.form-row{margin-bottom:18px}
-.form-row label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
-.form-row input,.form-row select,.form-row textarea{scroll-margin-top:80px;
-  width:100%;border:1.5px solid #d4e4dd;border-radius:10px;
-  padding:10px 14px;font-size:16px;font-family:'Inter',sans-serif;
-  color:#2d3b35 !important;-webkit-text-fill-color:#2d3b35 !important;
-  background:#ffffff !important;opacity:1 !important;
-  transition:border-color .2s,box-shadow .2s;outline:none;
-  -webkit-appearance:none;color-scheme:light;
-}
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{
-  border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,128,128,.1);
-}
-/* Override Brave/Safari autofill background which can hide typed text */
-.form-row input:-webkit-autofill,
-.form-row input:-webkit-autofill:focus,
-.form-row textarea:-webkit-autofill{
-  -webkit-box-shadow:0 0 0 999px #ffffff inset !important;
-  -webkit-text-fill-color:#2d3b35 !important;
-  caret-color:#2d3b35;
-}
-.form-row textarea{resize:vertical;min-height:80px}
-.time-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.time-slot{
-  border:1.5px solid #d4e4dd;border-radius:8px;
-  padding:7px 4px;text-align:center;font-size:12px;font-weight:500;
-  cursor:pointer;transition:all .2s;color:var(--text);background:var(--white);
-  user-select:none;
-}
-.time-slot:hover{border-color:var(--teal);color:var(--teal)}
-.time-slot.selected{background:var(--teal);border-color:var(--teal);color:var(--white)}
-.book-btn{
-  width:100%;background:var(--wa);color:var(--white);
-  border:none;border-radius:12px;
-  padding:14px;font-size:15px;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
-  margin-top:8px;
-  transition:transform .2s,box-shadow .2s;
-}
-.book-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.35)}
-.book-btn svg{width:20px;height:20px;fill:white}
 
 /* ===== YOUTUBE GALLERY ===== */
 .yt-grid{
@@ -342,9 +273,8 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 
 /* ===== CONTACT ===== */
 .contact-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:32px;max-width:1100px;margin:auto;
-  align-items:center;
+  display:grid;grid-template-columns:1fr;
+  gap:32px;max-width:700px;margin:auto;
 }
 .contact-card{
   background:var(--white);border-radius:20px;
@@ -359,10 +289,6 @@ nav.scrolled{box-shadow:0 4px 24px rgba(0,96,64,0.12)}
 .contact-icon svg{width:18px;height:18px;stroke:var(--teal);fill:none;stroke-width:1.8}
 .contact-row-text{font-size:14px;color:var(--text);line-height:1.6}
 .contact-row-text strong{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
-.hours-table{width:100%;border-collapse:collapse;font-size:14px}
-.hours-table tr{border-bottom:1px solid var(--light)}
-.hours-table td{padding:9px 4px;color:var(--text)}
-.hours-table td:last-child{text-align:right;color:var(--teal);font-weight:500}
 .map-btn{
   display:flex;align-items:center;justify-content:center;gap:8px;
   background:var(--green);color:var(--white);
@@ -431,7 +357,6 @@ footer{
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-  .booking-wrap{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr 1fr}
 }
@@ -439,18 +364,9 @@ footer{
   .nav-links,.nav-cta{display:none}
   .nav-burger{display:flex}
   .hero-content h1{font-size:26px}
-  .time-slots{grid-template-columns:repeat(2,1fr)}
   .footer-top{grid-template-columns:1fr}
-  .booking-left{padding:28px 20px}
-  .booking-right{padding:24px 20px}
-  /* prevent date input from overflowing on mobile */
-  .form-row input[type="date"]{
-    -webkit-appearance:none;appearance:none;
-    width:100%;max-width:100%;display:block;
-  }
   .section{padding:56px 4%}
   .section-sub{margin-bottom:36px}
-  .booking-wrap{margin:0}
   .footer-bottom{flex-direction:column;text-align:center;gap:6px}
   /* stats bar: single row of 3 on mobile */
   .stats-bar{grid-template-columns:repeat(3,1fr);padding:20px 4%;gap:8px}
@@ -459,9 +375,8 @@ footer{
   .services-grid{grid-template-columns:1fr}
   .yt-grid{grid-template-columns:1fr}
   .team-grid{grid-template-columns:1fr}
-  /* contact cards: reduce padding so table fits on small screens */
+  /* contact cards: reduce padding on small screens */
   .contact-card{padding:24px 20px}
-  .hours-table{font-size:13px}
 }
 </style>
 </head>
@@ -480,14 +395,9 @@ footer{
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
     <li><a href="#team">Our Team</a></li>
-    <li><a href="#booking">Book</a></li>
     <li><a href="#videos">Videos</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a class="nav-cta" href="#booking">
-    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
-    Book via WhatsApp
-  </a>
   <div class="nav-burger" id="burger">
     <span></span><span></span><span></span>
   </div>
@@ -497,13 +407,8 @@ footer{
 <div class="mobile-nav" id="mobileNav">
   <a href="#services" class="mob-link">Services</a>
   <a href="#team" class="mob-link">Our Team</a>
-  <a href="#booking" class="mob-link">Book Appointment</a>
   <a href="#videos" class="mob-link">Videos</a>
   <a href="#contact" class="mob-link">Contact</a>
-  <a href="#booking" class="mob-link mob-wa">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-    Book via WhatsApp
-  </a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -522,7 +427,7 @@ footer{
       <h1>Sri Lanka's Leading Allergy Specialty Center</h1>
       <p class="hero-tagline">Expert diagnosis, treatment &amp; long-term management of allergy and asthma conditions for patients of all ages.</p>
       <div class="hero-btns">
-        <a class="btn-primary" href="#booking">Book Appointment</a>
+        <a class="btn-primary" href="#contact">Contact Us</a>
         <a class="btn-outline" href="#services">Our Services</a>
       </div>
     </div>
@@ -665,78 +570,6 @@ footer{
   </div>
 </section>
 
-<!-- ===== WHATSAPP BOOKING ===== -->
-<section class="section" id="booking">
-  <h2 class="section-title reveal">Book an Appointment</h2>
-  <div class="divider reveal"></div>
-  <p class="section-sub reveal">Choose your preferred date and time and we'll confirm via WhatsApp instantly.</p>
-
-  <div class="booking-wrap reveal">
-    <div class="booking-left">
-      <div>
-        <h3>Easy WhatsApp Booking</h3>
-        <p>Fill in your preferred appointment details and we will connect you with our clinic coordinator directly on WhatsApp.</p>
-        <div class="booking-info-item">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Clinic hours: Mon–Fri 8:30 AM – 5:00 PM
-        </div>
-        <div class="booking-info-item">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <a href="https://www.google.com/maps/search/?api=1&query=No.+107+Wijaya+Kumarathunga+Mawatha+Colombo+5" target="_blank" rel="noopener">No. 107, Wijaya Kumarathunga Mw, Polhengoda, Colombo 5</a>
-        </div>
-      </div>
-      <div class="wa-big">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-        <div>
-          <span>Clinic Coordinator</span>
-          <strong><a href="https://wa.me/94773710528" target="_blank">077 37 10 528</a></strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="booking-right">
-      <h4>Fill in your details</h4>
-
-      <div class="form-row">
-        <label>Your Name</label>
-        <input type="text" id="bookName" placeholder="e.g. Kamal Perera">
-      </div>
-
-      <div class="form-row">
-        <label>Preferred Date</label>
-        <input type="date" id="bookDate">
-      </div>
-
-      <div class="form-row">
-        <label>Preferred Time Slot</label>
-        <div class="time-slots" id="timeSlots">
-          <div class="time-slot" data-time="8:30 AM">8:30 AM</div>
-          <div class="time-slot" data-time="9:00 AM">9:00 AM</div>
-          <div class="time-slot" data-time="9:30 AM">9:30 AM</div>
-          <div class="time-slot" data-time="10:00 AM">10:00 AM</div>
-          <div class="time-slot" data-time="10:30 AM">10:30 AM</div>
-          <div class="time-slot" data-time="11:00 AM">11:00 AM</div>
-          <div class="time-slot" data-time="2:00 PM">2:00 PM</div>
-          <div class="time-slot" data-time="2:30 PM">2:30 PM</div>
-          <div class="time-slot" data-time="3:00 PM">3:00 PM</div>
-          <div class="time-slot" data-time="3:30 PM">3:30 PM</div>
-          <div class="time-slot" data-time="4:00 PM">4:00 PM</div>
-          <div class="time-slot" data-time="4:30 PM">4:30 PM</div>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label>Reason / Notes (optional)</label>
-        <textarea id="bookReason" placeholder="e.g. Skin allergy follow-up, first visit for asthma..."></textarea>
-      </div>
-
-      <button class="book-btn" id="bookBtn">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-        Confirm via WhatsApp
-      </button>
-    </div>
-  </div>
-</section>
 
 <!-- ===== YOUTUBE GALLERY ===== -->
 <section class="section section-alt" id="videos">
@@ -811,18 +644,6 @@ footer{
       </a>
     </div>
 
-    <div class="contact-card reveal-right">
-      <h3>Clinic Hours</h3>
-      <table class="hours-table">
-        <tr><td>Monday</td><td>Upon reservation</td></tr>
-        <tr><td>Tuesday</td><td>Upon reservation</td></tr>
-        <tr><td>Wednesday</td><td>Upon reservation</td></tr>
-        <tr><td>Thursday</td><td>Upon reservation</td></tr>
-        <tr><td>Friday</td><td>Upon reservation</td></tr>
-        <tr><td>Saturday</td><td>Upon reservation</td></tr>
-        <tr><td>Sunday</td><td>Upon reservation</td></tr>
-      </table>
-    </div>
   </div>
 </section>
 
@@ -838,7 +659,6 @@ footer{
       <ul>
         <li><a href="#services">Services</a></li>
         <li><a href="#team">Our Team</a></li>
-        <li><a href="#booking">Book Appointment</a></li>
         <li><a href="#videos">Videos</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -896,21 +716,6 @@ function applyImages() {
   });
 }
 
-// ===== iOS KEYBOARD SCROLL FIX =====
-// When the keyboard opens, iOS shrinks the viewport and auto-scrolls the
-// focused element — but ignores the fixed nav bar, so the field ends up
-// hidden. We wait for the keyboard animation (~450ms) then manually
-// center the focused element in the remaining visible space.
-document.querySelectorAll('.booking-right input, .booking-right textarea').forEach(function(el) {
-  el.addEventListener('focus', function() {
-    var focused = this;
-    setTimeout(function() {
-      if (document.activeElement === focused) {
-        focused.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      }
-    }, 450);
-  });
-});
 
 // ===== HAMBURGER MENU =====
 var burger = document.getElementById('burger');
@@ -965,40 +770,6 @@ var countObserver = new IntersectionObserver(function(entries) {
 var statsBar = document.querySelector('.stats-bar');
 if (statsBar) countObserver.observe(statsBar);
 
-// ===== TIME SLOT SELECTION =====
-var selectedTime = '';
-document.querySelectorAll('.time-slot').forEach(function(slot) {
-  slot.addEventListener('click', function() {
-    document.querySelectorAll('.time-slot').forEach(function(s) { s.classList.remove('selected'); });
-    slot.classList.add('selected');
-    selectedTime = slot.getAttribute('data-time');
-  });
-});
-
-// Set min date to today
-var today = new Date().toISOString().split('T')[0];
-document.getElementById('bookDate').setAttribute('min', today);
-
-// ===== WHATSAPP BOOKING =====
-document.getElementById('bookBtn').addEventListener('click', function() {
-  var name = document.getElementById('bookName').value.trim() || 'Not provided';
-  var date = document.getElementById('bookDate').value;
-  var reason = document.getElementById('bookReason').value.trim() || 'General consultation';
-
-  if (!date) { alert('Please select a preferred date.'); return; }
-  if (!selectedTime) { alert('Please select a preferred time slot.'); return; }
-
-  var dateFormatted = new Date(date).toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-  var msg = 'Hello, I would like to book a consultation appointment at the Allergy & Asthma Center, Narahenpita.\n\n'
-    + '👤 Name: ' + name + '\n'
-    + '📅 Date: ' + dateFormatted + '\n'
-    + '🕐 Time: ' + selectedTime + '\n'
-    + '📋 Reason: ' + reason + '\n\n'
-    + 'Please confirm my appointment. Thank you!';
-
-  window.open('https://wa.me/94773710528?text=' + encodeURIComponent(msg), '_blank');
-});
 
 // ===== YOUTUBE GALLERY (reads videos.json generated by GitHub Actions) =====
 (function() {
